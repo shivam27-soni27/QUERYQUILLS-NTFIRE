@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Popup Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none;
+            box-sizing: border-box;
+            font-family: "jetbrains mono", sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100%;
+            background: #11131e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            transform-origin: center;
+            scale: 1;
+            opacity: 1;
+            z-index: 11;
+            background: #fff;
+            width: 410px;
+            padding: 30px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .container .text {
+            font-size: 35px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .container form {
+            margin-top: -20px;
+            transition: all 0.3s ease;
+        }
+
+        .container form .data {
+            height: 45px;
+            width: 100%;
+            margin: 40px 0;
+        }
+
+        form .data label {
+            font-size: 18px;
+        }
+
+        form .data input {
+            height: 100%;
+            width: 100%;
+            padding-left: 10px;
+            font-size: 17px;
+            border: 1px solid silver;
+            border-radius: 24px;
+        }
+
+        form .data input:focus {
+            border-color: #D557ED;
+            border-bottom-width: 2px;
+        }
+
+        form .btn {
+            margin: 30px 0;
+            height: 45px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        form .btn .inner {
+            height: 100%;
+            width: 300%;
+            position: absolute;
+            left: -100%;
+            z-index: -1;
+            transition: all 0.4s;
+        }
+
+        form .btn:hover .inner {
+            left: 0;
+        }
+
+        form .btn button {
+            height: 100%;
+            width: 100%;
+            background: none;
+            border: none;
+            color: #fff;
+            background: #D557ED;
+            font-size: 18px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .error-message {
+            text-align: center;
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="text">LOGIN FORM</div>
+        <form id="loginForm" action="#">
+            <div class="data">
+                <label>Username</label>
+                <input type="text" id="username" required autofocus />
+            </div>
+            <div class="data">
+                <label>Password</label>
+                <input type="password" id="password" required />
+            </div>
+            <div class="data">
+                <label>Database Name</label>
+                <input type="text" id="databaseName" required />
+            </div>
+            <div class="btn">
+                <div class="inner"></div>
+                <button type="submit">login</button>
+            </div>
+            <div class="error-message" id="errorMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.container').style.display = 'block';
+        });
+        // document.querySelector('.login-btn').addEventListener('click', function () {
+        //     window.location.href = './popup.html';
+        // });
+        
+
+        // Function to reset form fields and focus on username field
+        function resetForm() {
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('databaseName').value = '';
+            document.getElementById('errorMessage').textContent = '';
+            document.getElementById('username').focus();
+        }
+
+        // Event listener for form submission
+        // Event listener for form submission
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var databaseName = document.getElementById('databaseName').value;
+            var errorMessage = document.getElementById('errorMessage');
+
+            // Check username, password, and database name
+            if (username === 'shiv' && password === 'shiv' && databaseName.trim() !== '') {
+                // If correct, set database name in sessionStorage and redirect to index.html
+                sessionStorage.setItem('databaseName', databaseName);
+                window.location.href = './index.html';
+            } else {
+                // If incorrect, show an error message and reset form fields
+                resetForm();
+                errorMessage.textContent = 'Please enter valid credentials and database name.';
+            }
+        });
+
+    </script>
+</body>
+
+</html>
